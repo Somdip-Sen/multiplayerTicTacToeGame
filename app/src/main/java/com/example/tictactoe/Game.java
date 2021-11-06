@@ -40,8 +40,25 @@ public class Game extends AppCompatActivity{
         player2 = i.getStringExtra("player2");
         play_again_button = (Button)findViewById(R.id.play_again);
         switch_player_button = (Button)findViewById(R.id.player_switch);
-
+//        play_again_button.setOnClickListener(this);
         board = (Board)findViewById(R.id.board3);
+//        play_again_button.setVisibility(View.INVISIBLE);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.d("loop", "created");
+//                while(board.newGame) {
+//                    try {
+//                        Thread.sleep(1500);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                Log.d("loop", "broke");
+//                switch_player_button.setVisibility(View.INVISIBLE);
+//                play_again_button.setVisibility(View.VISIBLE);
+//            }
+//        }).run();
 
         //Button works
         new Thread(new Runnable() {
@@ -50,8 +67,11 @@ public class Game extends AppCompatActivity{
                 switch_player_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (board.newGame) board.player = board.player==1?2:1;
+                        Log.d("newGame", "value " +board.newGame);
+                        if (board.newGame) {
+                        board.player = board.player==1?2:1;
                         set_turn();
+                        }
                     }
                 });
                 play_again_button.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +83,17 @@ public class Game extends AppCompatActivity{
                         Random rand = new Random();
                         board.player = rand.nextInt(2)+1;
                         set_turn();
-                        board.newGame = true;
-
+//                        switch_player_button.setVisibility(View.VISIBLE);
+//                        play_again_button.setVisibility(View.INVISIBLE);
+//                        a = new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                while(board.newGame);
+//                                Log.d("loop", "broke");
+//                                switch_player_button.setVisibility(View.INVISIBLE);
+//                            }
+//                        });
+//                        a.run();
                     }
                 });
             }
@@ -74,6 +103,19 @@ public class Game extends AppCompatActivity{
         @SuppressLint("SetTextI18n") Runnable runnable = () -> {
             try {
                 while(true) {
+
+                    //Log.d("Value Test", "new game" + board.newGame );
+//                    if(play_again_button.getVisibility() == View.INVISIBLE && !board.newGame) {
+//                        switch_player_button.setVisibility(View.INVISIBLE);
+//                        play_again_button.setVisibility(View.VISIBLE);
+//                    }
+//                        switch_player_button.setVisibility(View.VISIBLE);
+//                        play_again_button.setVisibility(View.INVISIBLE);
+//                    }
+//                    else{
+//                        switch_player_button.setVisibility(View.INVISIBLE);
+//                        play_again_button.setVisibility(View.VISIBLE);
+//                    }
 
                     if (board.got_winner && board.flag == 1) {
                         //winner();
@@ -138,6 +180,28 @@ public class Game extends AppCompatActivity{
         score1.setText(String.valueOf(board.score1));
         score2.setText(String.valueOf(board.score2));
         set_turn();
+        Handler handler1 = new Handler();
+        Runnable runnable1 = () -> {  // constant check for send own turn
+            while (true) {
+                if(board.turn!=0){
+                    handler1.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(board.turn == 1) {
+                                turn.setText(player1 + "'s turn");
+                                board.turn = 0;
+                            }
+                            else if(board.turn == 2){
+                                turn.setText(player2 + "'s turn");
+                                board.turn = 0;
+                            }
+                        }
+                    });
+                }
+            }
+        };
+        a = new Thread(runnable1);
+        a.start();
     }
 
     @SuppressLint("SetTextI18n")
@@ -150,6 +214,17 @@ public class Game extends AppCompatActivity{
         else turn.setText(player2 + " Starts ");
     }
 
+//    @SuppressLint("SetTextI18n")
+//    @Override
+//    public void onClick(View v) {
+//        board.game_reset();
+//        board.got_winner = false;
+//        board.invalidate();
+//        Random rand = new Random();
+//        board.player = rand.nextInt(2)+1;
+//        set_turn();
+//    }
+//
 }
 
 

@@ -19,7 +19,7 @@ public class Board extends View {
     private int cellsize;
     private int row, col;
     Game_logic game;
-    protected int player, match_winner = 0;
+    protected int player, match_winner = 0, turn = 0;
     protected boolean win = false;
     protected int score1,score2;
     boolean got_winner = false, newGame = true;
@@ -86,9 +86,17 @@ public class Board extends View {
             if (game.alter(row, col, player)) {
 
                 // player alternating
-                if (player == 1) player++;
-                else
+//                if (player == 1) player++;
+//                else
+//                    player--;
+                if (player == 1) {
+                    turn = 2;
+                    player++;
+                }
+                else{
+                    turn = 1;
                     player--;
+                }
 
                 return true;
             } else
@@ -144,9 +152,11 @@ public class Board extends View {
     }
     protected void game_reset()
     {
+        newGame = true;
         game.reset();
         match_winner = 0;
         flag = 0;
+        turn = 0;
     }
     protected void check_win(Canvas canvas)
     {
