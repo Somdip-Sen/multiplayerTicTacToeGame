@@ -7,6 +7,7 @@
     <string name="continue_button">Continue</string>
     <string name="helper_text">Single Word Name</string>
     <string name="back_button">Back button</string>
-    <string name="play_again">play_again</string>
+    <string name="play_again">play again</string>
+    <string name="player_switch">swich player</string>
 
 </resources>

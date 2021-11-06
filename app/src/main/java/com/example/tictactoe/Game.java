@@ -1,6 +1,7 @@
 package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.DialogTitle;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +17,12 @@ import android.widget.TextView;
 import java.util.Random;
 
 
-public class Game extends AppCompatActivity implements View.OnClickListener{
-    Button play_again_button;
+public class Game extends AppCompatActivity{
+    Button play_again_button, switch_player_button;
     Board board;
     String player1,player2,text;
     TextView tv1,tv2,score1,score2,winner,turn;
+    Thread a;
 
 
     @Override
@@ -36,14 +39,42 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         player1 = i.getStringExtra("player1");
         player2 = i.getStringExtra("player2");
         play_again_button = (Button)findViewById(R.id.play_again);
-        play_again_button.setOnClickListener(this);
+        switch_player_button = (Button)findViewById(R.id.player_switch);
+
         board = (Board)findViewById(R.id.board3);
 
+        //Button works
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                switch_player_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (board.newGame) board.player = board.player==1?2:1;
+                        set_turn();
+                    }
+                });
+                play_again_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        board.game_reset();
+                        board.got_winner = false;
+                        board.invalidate();
+                        Random rand = new Random();
+                        board.player = rand.nextInt(2)+1;
+                        set_turn();
+                        board.newGame = true;
 
-        Handler handler = new Handler();
+                    }
+                });
+            }
+        }).start();
+
+    Handler handler = new Handler();
         @SuppressLint("SetTextI18n") Runnable runnable = () -> {
             try {
                 while(true) {
+
                     if (board.got_winner && board.flag == 1) {
                         //winner();
                         handler.post(() -> {
@@ -119,16 +150,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         else turn.setText(player2 + " Starts ");
     }
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onClick(View v) {
-        board.game_reset();
-        board.got_winner = false;
-        board.invalidate();
-        Random rand = new Random();
-        board.player = rand.nextInt(2)+1;
-        set_turn();
-    }
 }
 
 

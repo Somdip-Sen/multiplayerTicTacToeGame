@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.Random;
 
 public class Board extends View {
@@ -20,8 +22,9 @@ public class Board extends View {
     protected int player, match_winner = 0;
     protected boolean win = false;
     protected int score1,score2;
-    boolean got_winner = false;
+    boolean got_winner = false, newGame = true;
     protected int flag = 0;
+
 
 
     public Board(Context context, @Nullable AttributeSet attrs) {
@@ -79,7 +82,9 @@ public class Board extends View {
                 col = (int) Math.ceil(y_position / cellsize) - 1;
             }
             invalidate();
+            newGame = false; // game in progress
             if (game.alter(row, col, player)) {
+
                 // player alternating
                 if (player == 1) player++;
                 else
@@ -201,4 +206,5 @@ public class Board extends View {
 
     }
 }
+
 
