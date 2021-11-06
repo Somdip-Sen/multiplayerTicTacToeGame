@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Random;
 
 
@@ -24,7 +27,7 @@ public class Game extends AppCompatActivity{
     TextView tv1,tv2,score1,score2,winner,turn;
     Thread a;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,41 +43,37 @@ public class Game extends AppCompatActivity{
         player2 = i.getStringExtra("player2");
         play_again_button = (Button)findViewById(R.id.play_again);
         switch_player_button = (Button)findViewById(R.id.player_switch);
+        play_again_button.setVisibility(View.INVISIBLE);
 //        play_again_button.setOnClickListener(this);
         board = (Board)findViewById(R.id.board3);
-//        play_again_button.setVisibility(View.INVISIBLE);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d("loop", "created");
-//                while(board.newGame) {
-//                    try {
-//                        Thread.sleep(1500);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                Log.d("loop", "broke");
-//                switch_player_button.setVisibility(View.INVISIBLE);
-//                play_again_button.setVisibility(View.VISIBLE);
-//            }
-//        }).run();
+        board.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    switch_player_button.setVisibility(View.INVISIBLE);
+                    play_again_button.setVisibility(View.VISIBLE);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         //Button works
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 switch_player_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("newGame", "value " +board.newGame);
-                        if (board.newGame) {
                         board.player = board.player==1?2:1;
                         set_turn();
-                        }
+
+
                     }
                 });
                 play_again_button.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public void onClick(View v) {
                         board.game_reset();
@@ -83,17 +82,20 @@ public class Game extends AppCompatActivity{
                         Random rand = new Random();
                         board.player = rand.nextInt(2)+1;
                         set_turn();
-//                        switch_player_button.setVisibility(View.VISIBLE);
-//                        play_again_button.setVisibility(View.INVISIBLE);
-//                        a = new Thread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                while(board.newGame);
-//                                Log.d("loop", "broke");
-//                                switch_player_button.setVisibility(View.INVISIBLE);
-//                            }
-//                        });
-//                        a.run();
+                        showToast("New game Started");
+                        switch_player_button.setVisibility(View.VISIBLE);
+                        play_again_button.setVisibility((View.INVISIBLE));
+                        board.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                if(event.getAction() == MotionEvent.ACTION_UP){
+                                    switch_player_button.setVisibility(View.INVISIBLE);
+                                    play_again_button.setVisibility(View.VISIBLE);
+                                    return true;
+                                }
+                                return false;
+                            }
+                        });
                     }
                 });
             }
@@ -103,20 +105,6 @@ public class Game extends AppCompatActivity{
         @SuppressLint("SetTextI18n") Runnable runnable = () -> {
             try {
                 while(true) {
-
-                    //Log.d("Value Test", "new game" + board.newGame );
-//                    if(play_again_button.getVisibility() == View.INVISIBLE && !board.newGame) {
-//                        switch_player_button.setVisibility(View.INVISIBLE);
-//                        play_again_button.setVisibility(View.VISIBLE);
-//                    }
-//                        switch_player_button.setVisibility(View.VISIBLE);
-//                        play_again_button.setVisibility(View.INVISIBLE);
-//                    }
-//                    else{
-//                        switch_player_button.setVisibility(View.INVISIBLE);
-//                        play_again_button.setVisibility(View.VISIBLE);
-//                    }
-
                     if (board.got_winner && board.flag == 1) {
                         //winner();
                         handler.post(() -> {
@@ -214,17 +202,9 @@ public class Game extends AppCompatActivity{
         else turn.setText(player2 + " Starts ");
     }
 
-//    @SuppressLint("SetTextI18n")
-//    @Override
-//    public void onClick(View v) {
-//        board.game_reset();
-//        board.got_winner = false;
-//        board.invalidate();
-//        Random rand = new Random();
-//        board.player = rand.nextInt(2)+1;
-//        set_turn();
-//    }
-//
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }
 
 

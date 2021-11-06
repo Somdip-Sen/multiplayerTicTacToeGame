@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -22,8 +23,9 @@ public class Board extends View {
     protected int player, match_winner = 0, turn = 0;
     protected boolean win = false;
     protected int score1,score2;
-    boolean got_winner = false, newGame = true;
+    boolean got_winner = false;
     protected int flag = 0;
+
 
 
 
@@ -37,6 +39,8 @@ public class Board extends View {
         //retrieving attributes value from attrs.xml file
         TypedArray arr = context.getTheme().obtainStyledAttributes(attrs,R.styleable.board, 0,0);
 
+
+
         try {
             boardColor = arr.getInteger(R.styleable.board_boardColor, 0);
             player1Color = arr.getInteger(R.styleable.board_player1color, 0);
@@ -46,6 +50,7 @@ public class Board extends View {
         finally {
             arr.recycle();
         }
+
     }
 
 
@@ -82,7 +87,7 @@ public class Board extends View {
                 col = (int) Math.ceil(y_position / cellsize) - 1;
             }
             invalidate();
-            newGame = false; // game in progress
+
             if (game.alter(row, col, player)) {
 
                 // player alternating
@@ -152,7 +157,7 @@ public class Board extends View {
     }
     protected void game_reset()
     {
-        newGame = true;
+
         game.reset();
         match_winner = 0;
         flag = 0;
