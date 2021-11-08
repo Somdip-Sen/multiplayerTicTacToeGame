@@ -7,8 +7,11 @@
         <entry key="app/src/main/res/drawable-v24/playAgainIcon.xml" value="0.1825" />
         <entry key="app/src/main/res/drawable-v24/play_again_icon.xml" value="0.1825" />
         <entry key="app/src/main/res/drawable/button_format.xml" value="0.1825" />
+        <entry key="app/src/main/res/drawable/ic_back_button.xml" value="0.1825" />
         <entry key="app/src/main/res/drawable/play_again.xml" value="0.1825" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.20436083796494228" />
+        <entry key="app/src/main/res/layout/activity_player_details.xml" value="0.20436083796494228" />
       </map>
     </option>
   </component>
