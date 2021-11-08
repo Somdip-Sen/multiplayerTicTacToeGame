@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_home">#FFECAC3A</color>
+    <color name="button_home_ripple">#90F1B242</color>
+    <color name="colorPrimaryLight">#F3FDC259</color>
+    <color name="colorPrimary">#B37E20</color>
     <color name="background">#EFEBE9</color>
     <color name="player1">#FFF64444</color>
     <color name="player2">#FF2C881E</color>

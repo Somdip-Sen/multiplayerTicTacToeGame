@@ -44,7 +44,6 @@ public class Game extends AppCompatActivity{
         play_again_button = (Button)findViewById(R.id.play_again);
         switch_player_button = (Button)findViewById(R.id.player_switch);
         play_again_button.setVisibility(View.INVISIBLE);
-//        play_again_button.setOnClickListener(this);
         board = (Board)findViewById(R.id.board3);
         board.setOnTouchListener(new View.OnTouchListener() {
             @Override
