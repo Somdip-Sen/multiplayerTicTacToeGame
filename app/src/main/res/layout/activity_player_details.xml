@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image"
+    android:animateLayoutChanges="true"
+    >
+
+   <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/firstPlayer"
+    android:layout_width="0dp"
+    android:layout_height="93dp"
+    android:layout_marginStart="70dp"
+    android:layout_marginEnd="70dp"
+    android:gravity="center"
+    android:hint="@string/first_player_name"
+    app:counterEnabled="true"
+    app:counterMaxLength="10"
+    app:endIconMode="clear_text"
+    app:errorEnabled="true"
+    app:helperText="@string/helper_text"
+    app:helperTextEnabled="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.285"
+    app:startIconDrawable="@drawable/ic_player1"
+    app:startIconTint="@color/player1">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/secondPlayer"
+        android:layout_width="0dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="150sp"
+        android:layout_marginEnd="70dp"
+        android:gravity="center"
+        android:hint="@string/second_player_name"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="@string/helper_text"
+        app:helperTextEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/firstPlayer"
+        app:layout_constraintVertical_bias="0.041"
+        app:startIconDrawable="@drawable/ic_player1"
+        app:startIconTint="@color/player2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/home_button" />
+
+
+    <Button
+        android:id="@+id/continue_game"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="176dp"
+        android:background="@drawable/button_format"
+        android:drawableRight="@drawable/continue_button"
+        android:drawablePadding="3dp"
+        android:elegantTextHeight="true"
+        android:padding="15dp"
+        android:text="@string/continue_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondPlayer"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

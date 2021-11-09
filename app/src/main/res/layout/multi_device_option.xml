@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image"
+    tools:context=".Multi_device_option">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="casual"
+        android:text="How will you connect ???"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bluetooth"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="130dp"
+        android:backgroundTint="@color/button_home"
+        android:elegantTextHeight="true"
+        android:textStyle="bold|italic"
+        android:padding="15dp"
+        android:textSize="12sp"
+        android:background="@drawable/btn_background"
+        android:text="Connect via Bluetooth"
+        app:layout_constraintBottom_toTopOf="@+id/wifi"
+        app:layout_constraintEnd_toEndOf="@+id/wifi"
+        app:layout_constraintStart_toStartOf="@+id/wifi" />
+
+    <Button
+        android:id="@+id/wifi"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="250dp"
+        android:backgroundTint="@color/button_home"
+        android:elegantTextHeight="true"
+
+        android:textStyle="bold|italic"
+        android:padding="15dp"
+        android:textSize="12sp"
+        android:background="@drawable/btn_background"
+
+        android:text="Connect via Wi-fi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/wifi"
+        app:layout_constraintEnd_toStartOf="@+id/wifi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wifi"
+        app:lottie_rawRes="@raw/wifi"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/wifi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/wifi"
+        app:layout_constraintTop_toTopOf="@+id/wifi"
+        app:lottie_rawRes="@raw/wifi"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="wrap_content"
+        android:layout_height="270sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bluetooth"
+        app:layout_constraintEnd_toStartOf="@+id/bluetooth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bluetooth"
+        app:lottie_rawRes="@raw/bluetooth" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="270sp"
+        android:textStyle="bold|italic"
+        android:padding="15dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bluetooth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bluetooth"
+        app:layout_constraintTop_toTopOf="@+id/bluetooth"
+        app:lottie_rawRes="@raw/bluetooth" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
