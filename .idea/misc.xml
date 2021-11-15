@@ -14,6 +14,8 @@
         <entry key="app/src/main/res/layout/game_multi.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/home_page.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/menu.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/multi_device_option.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/multiple_device_player_details.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>

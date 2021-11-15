@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Game_multi extends AppCompatActivity{
-
+    Button play_again_button, switch_player_button;
     Board_multi board;
     String player1,player2,text;
     TextView tv1,tv2,score1,score2,turn;
@@ -55,15 +56,17 @@ public class Game_multi extends AppCompatActivity{
     private WifiP2pManager.Channel channel;
     private  WifiP2pManager manager;
     IntentFilter intentFilter;
-    LottieAnimationView celebration, badge1, badge2, cup1, cup2,  play_again_button_multi;
+    LottieAnimationView celebration, badge1, badge2, cup1;
     private MediaPlayer win_music;
+    Handler handler;
 
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_multi);
+        handler = new Handler();
         receiver = new GameWifiBroadcastReceiver(manager, channel, this, this);
         intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -78,18 +81,13 @@ public class Game_multi extends AppCompatActivity{
         badge1 = findViewById(R.id.player1Badge);
         badge2 = findViewById(R.id.player2Badge);
         cup1 = findViewById(R.id.cup1);
-        cup2 = findViewById(R.id.cup2);
-        play_again_button_multi = findViewById(R.id.play_again);
+        play_again_button = findViewById(R.id.multi_wifi_play_again);
+        switch_player_button = findViewById(R.id.multi_wifi_player_switch);
         win_music = MediaPlayer.create(this, R.raw.win);
         badge1.setVisibility(View.INVISIBLE);
         badge2.setVisibility(View.INVISIBLE);
         Intent i = getIntent();
-        play_again_button_multi.setOnClickListener(v -> {
-            // play again
-            play_again_button_multi.playAnimation();
-            playAgain();
-
-        });
+        play_again_button.setVisibility(View.INVISIBLE);
         is_server = i.getBooleanExtra("is_server" , false);
         port = i.getIntExtra("port", 0);
         player = i.getIntExtra("me",0);
@@ -102,6 +100,51 @@ public class Game_multi extends AppCompatActivity{
             player1 = i.getStringExtra("OtherPlayerName");
         }
         board = (Board_multi)findViewById(R.id.board4);
+        board.setOnTouchListener(new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if(event.getAction() == MotionEvent.ACTION_UP){
+                switch_player_button.setVisibility(View.INVISIBLE);
+                play_again_button.setVisibility(View.VISIBLE);
+                return true;
+            }
+            return false;
+        }
+        });
+        //Button works
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                switch_player_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            switchPlayer();
+                    }
+                });
+                play_again_button.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ClickableViewAccessibility")
+                    @Override
+                    public void onClick(View v) {
+                        playAgain();
+                        showToast("New game Started");
+                        switch_player_button.setVisibility(View.VISIBLE);
+                        play_again_button.setVisibility((View.INVISIBLE));
+                        board.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                if(event.getAction() == MotionEvent.ACTION_UP){
+                                    switch_player_button.setVisibility(View.INVISIBLE);
+                                    play_again_button.setVisibility(View.VISIBLE);
+                                    return true;
+                                }
+                                return false;
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
+
         cup1.addAnimatorListener(new Animator.AnimatorListener() {
 
             @Override
@@ -123,31 +166,6 @@ public class Game_multi extends AppCompatActivity{
 
             @Override
             public void onAnimationCancel(Animator animation) { }
-            @Override
-            public void onAnimationRepeat(Animator animation) { }
-        });
-        cup2.addAnimatorListener(new Animator.AnimatorListener() {
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-                cup2.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (flag2) {
-                    cup2.setSpeed(-1);
-                    cup2.playAnimation();
-                    flag2 = false;
-                }
-                else{
-                    cup2.setSpeed(1);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) { }
-
             @Override
             public void onAnimationRepeat(Animator animation) { }
         });
@@ -191,7 +209,7 @@ public class Game_multi extends AppCompatActivity{
         board.player = player;
 
 
-        Handler handler = new Handler();
+
         @SuppressLint("SetTextI18n") Runnable runnable = () -> {
             try {
                 while(true) {
@@ -213,7 +231,7 @@ public class Game_multi extends AppCompatActivity{
                             else if (board.match_winner == 2 ) {
                                 turn.setText(player2 + " Won");
                                 flag2 = true;
-                                cup2.playAnimation();
+
                                 if (player == board.match_winner)
                                     celebration.playAnimation();
                                 board.score2++;
@@ -276,6 +294,9 @@ public class Game_multi extends AppCompatActivity{
         score2.setText(String.valueOf(board.score2));
         sendLocation();
     }
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onPause() {
@@ -325,15 +346,30 @@ public class Game_multi extends AppCompatActivity{
     protected void set_turn()
     {
         turn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
-        if (player_start==player) {
-            turn.setText("You will start");
-        }
-        else {
-            turn.setText("Opponent will start");
-        }
-        board.player_start = player_start;
-        if (player_start == player) board.myTurn = true;
-        sendLocation();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                //do stuff like remove view etc
+                if (player_start==player) {
+                    turn.setText("You will start");
+                }
+                else {
+                    turn.setText("Opponent will start");
+                }
+                board.player_start = player_start;
+                if (player_start == player) board.myTurn = true;
+                sendLocation();
+            }
+        });
+//        if (player_start==player) {
+//            turn.setText("You will start");
+//        }
+//        else {
+//            turn.setText("Opponent will start");
+//        }
+//        board.player_start = player_start;
+//        if (player_start == player) board.myTurn = true;
+//        sendLocation();
     }
 
     private void reGame(){
@@ -350,6 +386,11 @@ public class Game_multi extends AppCompatActivity{
         } else {
             send(player2);
         }
+    }
+    public void switchPlayer(){
+            send("change_player");
+            board.player_start=board.player_start==1?2:1;
+            set_turn();
     }
 
     public void playAgain() {
@@ -496,7 +537,7 @@ public class Game_multi extends AppCompatActivity{
                                 int finalBytes = bytes;
                                 int msg_int;
                                 msg = new String(buffer, 0 , finalBytes);
-                                Log.d(TAG, "run: " + msg);
+
                                 if(msg.equals("quit")) {
                                     handler.post(new Runnable() {
                                         @Override
@@ -506,8 +547,15 @@ public class Game_multi extends AppCompatActivity{
                                     });
                                     break;
                                 }
+                                if(msg.equals("change_player")){
+                                    board.player_start=board.player_start==1?2:1;
+                                    set_turn();
+                                    continue;
+                                }
                                 if(msg.equals("Regame")) {
                                     flag = true;
+//                                    switch_player_button.setVisibility(View.VISIBLE);
+//                                    play_again_button.setVisibility(View.INVISIBLE);
                                     board.game_reset();
                                     board.invalidate();
                                     continue;
@@ -602,7 +650,14 @@ public class Game_multi extends AppCompatActivity{
                                     });
                                     break;
                                 }
+                                if(msg.equals("change_player")){
+                                    board.player_start=board.player_start==1?2:1;
+                                    set_turn();
+                                    continue;
+                                }
                                 if (msg.equals("player_choose")) {
+//                                    switch_player_button.setVisibility(View.VISIBLE);
+//                                    play_again_button.setVisibility(View.INVISIBLE);
                                     send("Regame");
                                     board.game_reset();
                                     board.invalidate();

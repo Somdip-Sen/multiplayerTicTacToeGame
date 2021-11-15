@@ -54,18 +54,10 @@ public class Game extends AppCompatActivity{
         Intent i = getIntent();
         player1 = i.getStringExtra("player1");
         player2 = i.getStringExtra("player2");
-//        play_again_button = findViewById(R.id.play_again);
-//        play_again_button.setOnClickListener(v -> {
-//            // play again
-//            play_again_button.playAnimation();
-//            playAgain();
-//
-//        });
         board = findViewById(R.id.board3);
         win_music = MediaPlayer.create(this, R.raw.win);
         play_again_button.setVisibility(View.INVISIBLE);
         board.setOnTouchListener(new View.OnTouchListener() {
-
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if(event.getAction() == MotionEvent.ACTION_UP){

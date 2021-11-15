@@ -62,7 +62,7 @@
         android:id="@+id/choose_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/colorChoose"
@@ -99,19 +99,23 @@
 <!--        app:layout_constraintHorizontal_bias="0.879"-->
 <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
-    <com.airbnb.lottie.LottieAnimationView
+    <Button
+        android:id="@+id/multi_continue_game"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="200dp"
+        android:background="@drawable/button_format"
+        android:drawableRight="@drawable/continue_button"
+        android:drawablePadding="3dp"
+        android:elegantTextHeight="true"
+        android:padding="15dp"
+        android:text="@string/continue_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.814"
         app:layout_constraintStart_toStartOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        android:id="@+id/continue_button_multi"
-        app:lottie_rawRes="@raw/continue_button"/>
+        app:layout_constraintTop_toBottomOf="@+id/choose_color"
+        app:layout_constraintVertical_bias="0.186" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

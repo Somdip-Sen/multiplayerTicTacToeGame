@@ -85,18 +85,41 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/board4"-->
 <!--        app:layout_constraintVertical_bias="0.341" />-->
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/play_again"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/multi_wifi_play_again"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/button_format"
+        android:drawableLeft="@drawable/play_again"
+        android:drawablePadding="3dp"
+        android:padding="10dp"
+        android:elegantTextHeight="true"
+        android:text="@string/play_again"
+        app:layout_constraintBottom_toBottomOf="@+id/win"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toEndOf="@+id/multi_wifi_player_switch"
+        app:layout_constraintTop_toBottomOf="@+id/board4" />
+
+
+    <Button
+        android:id="@+id/multi_wifi_player_switch"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:background="@drawable/button_format"
+        android:drawableLeft="@drawable/switch_player_icon"
+        android:drawablePadding="3dp"
+        android:elegantTextHeight="true"
+        android:padding="10dp"
+        android:text="@string/player_switch"
+        app:layout_constraintBottom_toBottomOf="@+id/multi_wifi_play_again"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board4"
-        app:layout_constraintVertical_bias="0.341"
-        app:lottie_rawRes="@raw/play_again"
-        />
+        app:layout_constraintTop_toTopOf="@+id/multi_wifi_play_again"
+        app:layout_constraintVertical_bias="0.623" />
 
     <TextView
         android:id="@+id/score_player1_multi"
@@ -178,26 +201,13 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/cup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv5"
-        app:layout_constraintEnd_toEndOf="@+id/tv5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_rawRes="@raw/cup" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/cup2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv5"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="321dp"
+        android:layout_height="349dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/board4"
+        app:layout_constraintStart_toStartOf="@+id/board4"
+        app:layout_constraintTop_toTopOf="@+id/win"
+        app:layout_constraintVertical_bias="0.589"
         app:lottie_rawRes="@raw/cup" />
 
     <!--    <com.airbnb.lottie.LottieAnimationView-->

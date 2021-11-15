@@ -3,6 +3,8 @@ package com.example.tictactoe;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -13,8 +15,9 @@ public class multiple_device_player_details extends AppCompatActivity {
     String player1 = "", player2 = "";
     private final int MIN_LENGTH = 3, MAX_LENGTH = 12;
     private int player;
-    LottieAnimationView lottiebuttn, togglebtn, homebtn;
+    LottieAnimationView togglebtn, homebtn;
     Boolean ischecked = false;
+    Button continuebuttn;
 
 
     @Override
@@ -22,12 +25,15 @@ public class multiple_device_player_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.multiple_device_player_details);
         t1 = findViewById(R.id.name);
-        lottiebuttn = findViewById(R.id.continue_button_multi);
         togglebtn = findViewById(R.id.choose_color);
         homebtn = findViewById(R.id.home);
         homebtn.setSpeed(2.5f);
-        lottiebuttn.playAnimation();
-        lottiebuttn.setOnClickListener(v -> next_multi());
+        continuebuttn = findViewById(R.id.multi_continue_game);
+        //lottiebuttn.setOnClickListener(v -> next_multi());
+        continuebuttn.setOnClickListener(v -> {
+           next_multi();
+
+        });
         togglebtn.setOnClickListener(v -> {
             if(ischecked){
                 togglebtn.setMinAndMaxProgress(0.5f,1.0f);
