@@ -126,7 +126,6 @@ public class Game_multi extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         playAgain();
-                        showToast("New game Started");
                         switch_player_button.setVisibility(View.VISIBLE);
                         play_again_button.setVisibility((View.INVISIBLE));
                         board.setOnTouchListener(new View.OnTouchListener() {
@@ -395,6 +394,7 @@ public class Game_multi extends AppCompatActivity{
 
     public void playAgain() {
         if(is_server) {
+            showToast("New game Started");
             send("Regame");
             board.game_reset();
             board.invalidate();
@@ -554,6 +554,12 @@ public class Game_multi extends AppCompatActivity{
                                 }
                                 if(msg.equals("Regame")) {
                                     flag = true;
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Toast.makeText(context, "New game started",Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
 //                                    switch_player_button.setVisibility(View.VISIBLE);
 //                                    play_again_button.setVisibility(View.INVISIBLE);
                                     board.game_reset();
@@ -656,6 +662,12 @@ public class Game_multi extends AppCompatActivity{
                                     continue;
                                 }
                                 if (msg.equals("player_choose")) {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Toast.makeText(context, "New game started",Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
 //                                    switch_player_button.setVisibility(View.VISIBLE);
 //                                    play_again_button.setVisibility(View.INVISIBLE);
                                     send("Regame");
