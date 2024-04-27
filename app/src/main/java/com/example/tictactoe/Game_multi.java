@@ -47,12 +47,12 @@ public class Game_multi extends AppCompatActivity{
     BroadcastReceiver receiver;
     Server server;
     Client client;
-    private boolean is_server;
+    private boolean is_server, newGame=true;
     private final String TAG = "Game_multi";
     private int port, player;
     InetAddress grpOwnerAddress;
     private volatile int player_start;
-    private boolean flag = true, flag2 = false;
+    private boolean flag = true, flag2 = false, flag3=true;
     private WifiP2pManager.Channel channel;
     private  WifiP2pManager manager;
     IntentFilter intentFilter;
@@ -132,6 +132,11 @@ public class Game_multi extends AppCompatActivity{
                             @Override
                             public boolean onTouch(View v, MotionEvent event) {
                                 if(event.getAction() == MotionEvent.ACTION_UP){
+                                    Log.d(TAG, "onTouch Executing ");
+                                    if(flag3){
+                                        send("changeButton");
+                                        flag3 =false;
+                                    }
                                     switch_player_button.setVisibility(View.INVISIBLE);
                                     play_again_button.setVisibility(View.VISIBLE);
                                     return true;
@@ -393,6 +398,7 @@ public class Game_multi extends AppCompatActivity{
     }
 
     public void playAgain() {
+        flag3 = true;
         if(is_server) {
             showToast("New game Started");
             send("Regame");
@@ -531,7 +537,25 @@ public class Game_multi extends AppCompatActivity{
                     int bytes;
                     while(socket!=null){
                         try{
+                            if(switch_player_button.getVisibility() == View.INVISIBLE && newGame){
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        switch_player_button.setVisibility(View.VISIBLE);
+                                        play_again_button.setVisibility(View.INVISIBLE);
+                                    }
+                                });
 
+                            }
+                            else if(!newGame && play_again_button.getVisibility() == View.INVISIBLE){
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        switch_player_button.setVisibility(View.INVISIBLE);
+                                        play_again_button.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            }
                             bytes = inputStream.read(buffer);
                             if (bytes > 0){
                                 int finalBytes = bytes;
@@ -547,6 +571,11 @@ public class Game_multi extends AppCompatActivity{
                                     });
                                     break;
                                 }
+                                if(msg.equals("changeButton")){
+                                    newGame = false;
+
+                                    continue;
+                                }
                                 if(msg.equals("change_player")){
                                     board.player_start=board.player_start==1?2:1;
                                     set_turn();
@@ -554,6 +583,7 @@ public class Game_multi extends AppCompatActivity{
                                 }
                                 if(msg.equals("Regame")) {
                                     flag = true;
+                                    newGame = true;
                                     runOnUiThread(new Runnable() {
                                         public void run() {
                                             Toast.makeText(context, "New game started",Toast.LENGTH_SHORT).show();
@@ -639,6 +669,16 @@ public class Game_multi extends AppCompatActivity{
                     byte[] buffer = new byte[1024];
                     int bytes;
                     while(socket!=null){
+                        if(switch_player_button.getVisibility() == View.INVISIBLE && newGame){
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    switch_player_button.setVisibility(View.VISIBLE);
+                                    play_again_button.setVisibility(View.INVISIBLE);
+                                }
+                            });
+
+                        }
                         try{
                             bytes = inputStream.read(buffer);
                             if (bytes > 0) {
@@ -655,6 +695,10 @@ public class Game_multi extends AppCompatActivity{
                                         }
                                     });
                                     break;
+                                }
+                                if(msg.equals("changeButton")){
+                                    newGame = false;
+                                    continue;
                                 }
                                 if(msg.equals("change_player")){
                                     board.player_start=board.player_start==1?2:1;
