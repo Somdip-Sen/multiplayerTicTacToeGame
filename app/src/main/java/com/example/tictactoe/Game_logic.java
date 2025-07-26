@@ -1,5 +1,4 @@
 package com.example.tictactoe;
-
 import android.util.Log;
 
 public class Game_logic {
@@ -16,6 +15,7 @@ public class Game_logic {
             for(int j=0; j<=2;j++)
                 board[i][j]=0;
     }
+
     protected boolean alter(int col, int row, int player) {
         try {
             if (board[row][col] == 0) {

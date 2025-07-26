@@ -100,5 +100,4 @@
         app:layout_constraintTop_toBottomOf="@+id/secondPlayer"
         app:layout_constraintVertical_bias="1.0" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

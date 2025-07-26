@@ -10,6 +10,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
+
+import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 import java.util.Random;
 
 public class Board extends View {
@@ -23,7 +26,9 @@ public class Board extends View {
     protected int score1,score2;
     boolean got_winner = false;
     protected int flag = 0;
+
     private MediaPlayer player_click, opponent_click;
+
 
 
     public Board(Context context, @Nullable AttributeSet attrs) {
@@ -47,6 +52,7 @@ public class Board extends View {
         }
         player_click = MediaPlayer.create(context, R.raw.player_click);
         opponent_click = MediaPlayer.create(context, R.raw.enemy_click);
+
     }
 
 
@@ -95,8 +101,6 @@ public class Board extends View {
                     turn = 1;
                     player--;
                 }
-
-
                 return true;
             } else
                 return false;
