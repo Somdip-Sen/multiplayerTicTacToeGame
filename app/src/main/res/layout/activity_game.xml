@@ -34,11 +34,13 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="17sp"
+
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/board3"
         app:layout_constraintEnd_toStartOf="@+id/tv2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/tv2"
@@ -48,12 +50,14 @@
         android:textAlignment="center"
         android:textSize="17sp"
         android:textStyle="bold"
+
         app:layout_constraintBottom_toBottomOf="@+id/tv1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv1"
         app:layout_constraintTop_toTopOf="@+id/tv1"
         app:layout_constraintVertical_bias="0.411" />
+
 
 <!--    <TextView-->
 <!--        android:id="@+id/TotalWinner"-->
@@ -86,11 +90,13 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/board3"-->
 <!--        app:layout_constraintVertical_bias="0.341" />-->
 
+
     <Button
         android:id="@+id/play_again"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="20dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/button_format"
@@ -104,12 +110,12 @@
         app:layout_constraintStart_toEndOf="@+id/player_switch"
         app:layout_constraintTop_toBottomOf="@+id/board3" />
 
-
     <Button
         android:id="@+id/player_switch"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="50dp"
         android:background="@drawable/button_format"
         android:drawableLeft="@drawable/switch_player_icon"
@@ -154,10 +160,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/autour_one"
+
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/board3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/win"

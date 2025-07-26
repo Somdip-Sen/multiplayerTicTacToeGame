@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.Random;
@@ -68,6 +67,7 @@ public class Game extends AppCompatActivity{
             return false;
         }
     });
+
         //Button works
         new Thread(new Runnable() {
 
@@ -151,6 +151,7 @@ public class Game extends AppCompatActivity{
 //        });
 
         Handler handler = new Handler();
+
         @SuppressLint("SetTextI18n") Runnable runnable = () -> {
             try {
                 while(true) {
@@ -174,6 +175,7 @@ public class Game extends AppCompatActivity{
                                 flag = true;
                                 cup1.playAnimation();
                                 win_music.start();
+
                                 board.score2++;
                             }
 

@@ -66,6 +66,7 @@
         </activity>
         <service android:enabled="true" android:name=".BackgroundSoundService" />
 
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -1,7 +1,6 @@
 package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -108,4 +107,5 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onDestroy();
         Log.d(TAG, "onDestroy: calling..");
     }
+
 }
