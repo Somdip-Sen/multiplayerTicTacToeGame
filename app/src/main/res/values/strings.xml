@@ -1,13 +1,18 @@
-<resources>
-    <string name="app_name">TicTacToe</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Tic Tac Toe</string>
     <string name="Home_title">Tic Tac Toe</string>
     <string name="Home_button">Play</string>
-    <string name="first_player_name">PLayer 1 Name</string>
-    <string name="second_player_name">Player 2 Name</string>
+    <string name="first_player_name">Player\'s Name</string>
+    <string name="second_player_name">Player\'s Name</string>
     <string name="continue_button">Continue</string>
     <string name="helper_text">Single Word Name</string>
     <string name="back_button">Back button</string>
-    <string name="play_again">play again</string>
-    <string name="player_switch">swich player</string>
+    <string name="play_again">Play Again</string>
+    <string name="mode1">Single Device Mode</string>
+    <string name="mode2">Multi Device Mode</string>
+    <string name="invite_friend">Invite Friend</string>
+    <string name="join_friend">Join a Friend</string>
+    <string name="find_friend">Find Friend</string>
+    <string name="player_switch">Switch Player</string>
 
 </resources>

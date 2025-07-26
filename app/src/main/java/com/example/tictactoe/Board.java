@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.MutableLiveData;
 
+import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 import java.util.Random;
 
 public class Board extends View {
@@ -26,6 +27,7 @@ public class Board extends View {
     boolean got_winner = false;
     protected int flag = 0;
 
+    private MediaPlayer player_click, opponent_click;
 
 
 
@@ -37,19 +39,19 @@ public class Board extends View {
         Random rand = new Random();
         player = rand.nextInt(2)+1;
         //retrieving attributes value from attrs.xml file
-        TypedArray arr = context.getTheme().obtainStyledAttributes(attrs,R.styleable.board, 0,0);
-
-
+        TypedArray arr = context.getTheme().obtainStyledAttributes(attrs,R.styleable.Board, 0,0);
 
         try {
-            boardColor = arr.getInteger(R.styleable.board_boardColor, 0);
-            player1Color = arr.getInteger(R.styleable.board_player1color, 0);
-            player2Color = arr.getInteger(R.styleable.board_player2color, 0);
+            boardColor = arr.getInteger(R.styleable.Board_boardColor, 0);
+            player1Color = arr.getInteger(R.styleable.Board_player1color, 0);
+            player2Color = arr.getInteger(R.styleable.Board_player2color, 0);
 
         }
         finally {
             arr.recycle();
         }
+        player_click = MediaPlayer.create(context, R.raw.player_click);
+        opponent_click = MediaPlayer.create(context, R.raw.enemy_click);
 
     }
 
@@ -87,22 +89,18 @@ public class Board extends View {
                 col = (int) Math.ceil(y_position / cellsize) - 1;
             }
             invalidate();
-
             if (game.alter(row, col, player)) {
-
                 // player alternating
-//                if (player == 1) player++;
-//                else
-//                    player--;
                 if (player == 1) {
+                    player_click.start();
                     turn = 2;
                     player++;
                 }
                 else{
+                    opponent_click.start();
                     turn = 1;
                     player--;
                 }
-
                 return true;
             } else
                 return false;
@@ -157,11 +155,9 @@ public class Board extends View {
     }
     protected void game_reset()
     {
-
         game.reset();
         match_winner = 0;
         flag = 0;
-        turn = 0;
     }
     protected void check_win(Canvas canvas)
     {
@@ -221,5 +217,4 @@ public class Board extends View {
 
     }
 }
-
 

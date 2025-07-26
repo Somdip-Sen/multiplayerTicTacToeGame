@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="board">
+    <declare-styleable name="Board">
         <attr name="boardColor" format="color"/>
         <attr name="player1color" format="color" />
         <attr name="player2color" format="color" />
